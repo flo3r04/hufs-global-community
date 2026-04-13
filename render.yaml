@@ -14,6 +14,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  - type: postgres
-    name: hufs-db
+databases:
+  - name: hufs-db
     plan: free
