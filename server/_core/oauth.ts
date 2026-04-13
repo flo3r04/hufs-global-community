@@ -46,7 +46,8 @@ export function registerOAuthRoutes(app: Express) {
       if (!tokenRes.ok) {
         const errJson = await tokenRes.text();
         console.error("Kakao Token Error:", errJson);
-        throw new Error(`Failed to get Kakao token: ${errJson}`);
+        res.redirect(302, "/?error=oauth_failed");
+        return;
       }
       
       const tokenData = await tokenRes.json();
@@ -88,7 +89,7 @@ export function registerOAuthRoutes(app: Express) {
       res.redirect(302, "/");
     } catch (error) {
       console.error("[OAuth] Callback failed", error);
-      res.status(500).send(`OAuth Error: ${error instanceof Error ? error.stack : String(error)}`);
+      res.redirect(302, "/?error=oauth_failed");
     }
   });
 }
