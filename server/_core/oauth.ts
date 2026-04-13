@@ -46,7 +46,7 @@ export function registerOAuthRoutes(app: Express) {
       if (!tokenRes.ok) {
         const errJson = await tokenRes.text();
         console.error("Kakao Token Error:", errJson);
-        throw new Error("Failed to get Kakao token");
+        throw new Error(`Failed to get Kakao token: ${errJson}`);
       }
       
       const tokenData = await tokenRes.json();
